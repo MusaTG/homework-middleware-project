@@ -5,22 +5,18 @@ const PORT = process.env.PORT||5000;
 const app = express();
 
 const middleware = function (req,res,next){
+    if(req.method==="POST"){
+        console.log("Post iseği için istek gönderildi.");
+    }
     console.log("Yeni bir istek geldi.");
     next();
 };
-
-const middlewarePost = function (req,res,next){
-    console.log("Post iseği için istek gönderildi.");
-    next();
-};
-
 
 app.get("/hello",middleware,function(req, res){
     res.json("Merhaba, GET isteği attınız.");
 })
 
-app.post("/hello",middlewarePost,function(req, res,next){
-    next();
+app.post("/hello",middleware,function(req, res){
     res.json("Merhaba, POST isteği attınız.");
 })
 
